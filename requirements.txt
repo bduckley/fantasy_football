@@ -1,0 +1,5 @@
+Django~=2.2.4
+numpy
+matplotlib
+espnff
+ff_espn_api
