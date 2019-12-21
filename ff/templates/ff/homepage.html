@@ -1,0 +1,25 @@
+{% load static %}
+<html>
+	<head>	
+		<title>DB's Fantasy Football Page</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="{% static 'css/ff.css' %}">
+	</head>
+	<body>
+		<div class="page-header">
+			<h1><a href="/">DB's Fantasy Football Page</a></h1>
+		</div>		
+		<div class="content container">
+			<div class="row">
+				<div class="col-md-8">
+					<p> Welcome! Click here for the ESPN fantasy site:
+					<a href="https://fantasy.espn.com/football/league?leagueId=692156">click me</a>
+					and click <a href="{% url 'post_list' %}">here</a></p> for the blog post list
+					</p>
+					<p> Finally, click here to play with the experimental portion of the site: <a href="{% url 'weekly_scores' %}">weekly scores</a></p>
+				</div>
+			</div>
+		</div>
+</html>
