@@ -1,5 +1,7 @@
-Django~=2.2.4
+Django
 numpy
 matplotlib
 espnff
 ff_espn_api
+plotly==3.10.0
+pandas

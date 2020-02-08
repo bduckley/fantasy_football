@@ -94,26 +94,23 @@ def weekly_scores_new(request):
 	
 	fig = go.Figure()
 	max_week = 12
-	data = []
-	team_names = []
-	for week in range(0,max_week-1):
+	for week = 1:max_week
 		matchups = league.scoreboard(week=week)
 		scores = league.box_scores
 		data_home = [score.home_score for score in matchups[:]]
 		data_away = [score.away_score for score in matchups[:]]
-		data.append(data_home[:] + data_away[:])
+		data.week = data_home[:] + data_away[:]
 		team_names_home = [score.home_team.team_name for score in matchups[:]]
 		team_names_away = [score.away_team.team_name for score in matchups[:]]
-		team_names.append(team_names_home[:] + team_names_away[:])
-		fig.add_trace(go.Bar(x = team_names[week],y = data[week],name = str(week),visible=False))
+		team_names.week = team_names_home[:] + team_names_away[:]
+		fig.add_trace(go.Bar(x = team_names.week,y = data.week),name = str(week),visible=False)
 	
-	fig.layout.update(
+	fig.update_layout(
 		updatemenus=[
 			go.layout.Updatemenu(
 				active=0,
 				buttons=list([
-					dict(label=str(week),method="update",
-						args=[{"visible": [i==week for i in range(1,max_week)]}]) for week in range(1,max_week)
+					dict(label=str(week),method="update",args=[{"visible": [i=week for i in 1:max_week]}]) for week in 1:max_week
 				]),
 			)
 		],

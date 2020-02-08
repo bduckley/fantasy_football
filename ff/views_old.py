@@ -88,44 +88,28 @@ def weekly_scores_new(request):
 	league = League(league_id, year, espn_s2, swid)
 	teams = league.teams
 	top_scorer = league.top_scorer
-
+	matchups = league.scoreboard(week=12)
+	# print(type(matchups))
+	scores = league.box_scores
+	data_home = [score.home_score for score in matchups[:]]
+	data_away = [score.away_score for score in matchups[:]]
+	data = data_home[:] + data_away[:]
 #data = [score.home_score + score.away_score for score in matchups]
 	# team_names = [score.home_team.team_name + score.away_team.team_name for score in matchups]
-	
-	fig = go.Figure()
-	max_week = 12
-	data = []
-	team_names = []
-	for week in range(0,max_week-1):
-		matchups = league.scoreboard(week=week)
-		scores = league.box_scores
-		data_home = [score.home_score for score in matchups[:]]
-		data_away = [score.away_score for score in matchups[:]]
-		data.append(data_home[:] + data_away[:])
-		team_names_home = [score.home_team.team_name for score in matchups[:]]
-		team_names_away = [score.away_team.team_name for score in matchups[:]]
-		team_names.append(team_names_home[:] + team_names_away[:])
-		fig.add_trace(go.Bar(x = team_names[week],y = data[week],name = str(week),visible=False))
-	
-	fig.layout.update(
-		updatemenus=[
-			go.layout.Updatemenu(
-				active=0,
-				buttons=list([
-					dict(label=str(week),method="update",
-						args=[{"visible": [i==week for i in range(1,max_week)]}]) for week in range(1,max_week)
-				]),
-			)
-		],
-	)
-	
+	team_names_home = [score.home_team.team_name for score in matchups[:]]
+	team_names_away = [score.away_team.team_name for score in matchups[:]]
+	team_names = team_names_home[:] + team_names_away[:]
+	print(data)
+	print(2)
+	bars = go.Bar(x = team_names, y = data)
+	figure = go.Figure(data = [bars])
 	"""figure.update_layout(
 		updatemenus=[go.layout.Updatemenu(buttons=list([
 			dict(label="None",
 				method="relayout",
 				args=["
 				"""
-	plot_div = opy.plot(fig,output_type='div')
+	plot_div = opy.plot(figure,output_type='div')
 	# plot_div = opy([go.Bar(x = team_names, y = data)],output_type='div') 
 	return render(request,'ff/weekly_scores_new.html', context ={'plot_div':plot_div})
 	
